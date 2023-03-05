@@ -20,5 +20,14 @@ public class DeviceController {
         return ResponseEntity.ok(result);
     }
 
+    //TODO:
+    /*
+        1. Авторизация пользователь и работник
+        2. CRUD товара
+        3. Оформление заказа
+        4. Список заказов для работника
+        5. Картинки
+     */
+
 
 }
