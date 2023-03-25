@@ -2,8 +2,7 @@ package ru.leti.device.shop.model.order;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import ru.leti.device.shop.model.device.Device;
-import ru.leti.device.shop.model.user.ShopUser;
+import ru.leti.device.shop.model.device.OrderDevice;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,14 +15,9 @@ public class ShopOrder {
     private UUID id;
     private int number;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name = "order_device",
-            joinColumns = {@JoinColumn(name = "order_id")},
-            inverseJoinColumns = {@JoinColumn(name = "device_id")}
-    )
-    List<Device> devices;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
+    List<OrderDevice> orderDevices;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ShopUser shopUser;
+    private UUID userId;
 }

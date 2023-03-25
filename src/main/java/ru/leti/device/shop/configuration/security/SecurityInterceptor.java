@@ -14,7 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityInterceptor implements HandlerInterceptor {
     private final static String USER_TOKEN = "USER-TOKEN";
-    private final static List<String> ALLOWED_PATH = List.of("/login/sign/up", "/login/sign/in");
+    private final static List<String> ALLOWED_PATH = List.of("/login/sign/up", "/login/sign/in", "/swagger-ui/index.html",
+            "/swagger-ui/swagger-initializer.js", "/v3/api-docs/swagger-config", "/swagger-ui/swagger-ui.css", "/swagger-ui/swagger-ui-bundle.js",
+            "/swagger-ui/index.css", "/swagger-ui/swagger-ui-standalone-preset.js", "/v3/api-docs");
 
     private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
@@ -25,6 +27,7 @@ public class SecurityInterceptor implements HandlerInterceptor {
         String path = request.getRequestURI();
         if (!ALLOWED_PATH.contains(path) && userToken == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            throw new RuntimeException("Unauthorized");
         }
 
         return HandlerInterceptor.super.preHandle(request, response, handler);
