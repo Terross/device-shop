@@ -16,15 +16,14 @@ public class ShopOrder {
     private UUID id;
     private int number;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "shop_user_id")
-    private ShopUser user;
-
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "order_device",
-            joinColumns = { @JoinColumn(name = "order_id")},
-            inverseJoinColumns = { @JoinColumn(name = "device_id")}
+            joinColumns = {@JoinColumn(name = "order_id")},
+            inverseJoinColumns = {@JoinColumn(name = "device_id")}
     )
     List<Device> devices;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ShopUser shopUser;
 }
