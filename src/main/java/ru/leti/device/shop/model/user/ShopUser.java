@@ -18,6 +18,7 @@ public class ShopUser {
     private String firstName;
     private String secondName;
     private String password;
+    private String email;
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;

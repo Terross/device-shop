@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:8080")
 @Tag(name = "device", description = "Device API")
 public class DeviceController {
 

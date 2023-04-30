@@ -16,13 +16,13 @@ public class LoginService {
     private final UserRepository userRepository;
 
     public UserToken signIn(ShopUser shopUser) {
-        ShopUser userFromDb = userRepository.findById(shopUser.getId())
-                .orElseThrow(() -> new RuntimeException("User not found")); //TODO: сделать нормлаьную обработку ошибко
+        ShopUser userFromDb = userRepository.findShopUserByEmail(shopUser.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found")); //TODO: сделать нормлаьную обработку ошибок
         if (!userFromDb.getPassword().equals(shopUser.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
 
-        return new UserToken(userFromDb.getId(), userFromDb.getUserRole());
+        return new UserToken(userFromDb.getEmail(), userFromDb.getUserRole(), userFromDb.getId());
     }
 
     public UserToken signUp(ShopUser shopUser) {
@@ -30,6 +30,6 @@ public class LoginService {
         shopUser.setUserRole(UserRole.CUSTOMER);
         userRepository.save(shopUser);
 
-        return new UserToken(shopUser.getId(), shopUser.getUserRole());
+        return new UserToken(shopUser.getEmail(), shopUser.getUserRole(), shopUser.getId());
     }
 }

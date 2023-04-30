@@ -30,7 +30,7 @@ public class OrderService {
     public ShopOrder createOrder(ShopOrder shopOrder) {
         shopOrder.getOrderDevices().stream()
                 .forEach(orderDevice -> decreaseDeviceCount(orderDevice));
-
+        shopOrder.setId(UUID.randomUUID());
         return orderRepository.save(shopOrder);
     }
 
