@@ -12,7 +12,7 @@ import ru.leti.device.shop.repository.UserRepository;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @Tag(name = "user", description = "User API")
 public class UserController {
 
